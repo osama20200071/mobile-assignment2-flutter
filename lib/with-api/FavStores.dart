@@ -1,6 +1,7 @@
 import 'package:first_app/models/FavStore.dart';
 
 import 'package:first_app/services/context/AuthContext.dart';
+import 'package:first_app/views/login_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -24,10 +25,21 @@ class _FavStoreScreenState extends State<FavStoresScreen> {
     final token = Provider.of<AuthProvider>(context, listen: false).token;
     if (token == "") {
       debugPrint("No token");
-      Navigator.pushNamed(context, '/login');
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        _navigateToNextScreen();
+      });
     } else {
       fetchFavStores();
     }
+  }
+
+  void _navigateToNextScreen() {
+    // Perform navigation to the next screen
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
   }
 
   Future<void> fetchFavStores() async {
