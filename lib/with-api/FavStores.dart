@@ -130,6 +130,25 @@ class _FavStoreScreenState extends State<FavStoresScreen> {
                       store.name,
                       style: TextStyle(fontSize: 18),
                     ),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(store.name),
+                            content: Text('Distance: ${store.distance} km'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Close'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     trailing: IconButton(
                       onPressed: () {
                         _onLoveButtonPressed(index, store.id);
